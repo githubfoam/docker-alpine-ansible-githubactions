@@ -9,7 +9,7 @@ jobs:
 
 
   alpine-latest-job:
-    name: "docker alpine ansible ubuntu latest"
+    name: "ENVs docker alpine ansible ubuntu latest"
     runs-on: ubuntu-latest
     env:
       distribution: "alpine" #https://hub.docker.com/_/alpine
