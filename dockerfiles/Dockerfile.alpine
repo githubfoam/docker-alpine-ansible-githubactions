@@ -2,7 +2,7 @@
 FROM alpine:3.14
 LABEL org.opencontainers.image.authors="githubfoam"
 
-ENV ANSIBLE_VERSION "4.6.0"
+ENV ANSIBLE_VERSION "2.9.26"
 ENV ANSIBLE_LINT_VERSION "5.1.3"
 ENV MITOGEN_VERSION "0.2.9"
 
