@@ -3,7 +3,7 @@ FROM alpine:3.14
 LABEL org.opencontainers.image.authors="githubfoam"
 
 ENV ANSIBLE_VERSION "4.1.0"
-ENV ANSIBLE_LINT_VERSION "latest"
+ENV ANSIBLE_LINT_VERSION "5.2.1"
 ENV MITOGEN_VERSION "0.3.0"
 
 RUN apk --update --no-cache add \
