@@ -1,0 +1,58 @@
+#https://hub.docker.com/_/ubuntu
+FROM alpine:latest
+LABEL org.opencontainers.image.authors="githubfoam"
+
+ENV ANSIBLE_VERSION "4.1.0"
+ENV ANSIBLE_LINT_VERSION "latest"
+ENV MITOGEN_VERSION "0.3.0"
+
+RUN apk --update --no-cache add \
+        ca-certificates \
+        git \
+        openssh-client \
+        openssl \
+        python3\
+        py3-pip \
+        py3-cryptography \
+        rsync \
+        sshpass
+
+RUN apk --update add --virtual \
+        .build-deps \
+        python3-dev \
+        libffi-dev \
+        openssl-dev \
+        build-base \
+        curl \
+ && if [ ! -z "${MITOGEN_VERSION+x}" ]; then curl -s -L https://github.com/mitogen-hq/mitogen/archive/refs/tags/v${MITOGEN_VERSION}.tar.gz | tar xzf - -C /opt/ \
+ && mv /opt/mitogen-* /opt/mitogen; fi \
+ && pip3 install --upgrade \
+        pip \
+        cffi \
+ && pip3 install \
+        ansible==${ANSIBLE_VERSION} \
+        ansible-lint==${ANSIBLE_LINT_VERSION} \
+ && apk del \
+        .build-deps \
+ && rm -rf /var/cache/apk/*
+
+RUN mkdir -p /etc/ansible \
+ && echo 'localhost' > /etc/ansible/hosts \
+ && echo -e """\
+\n\
+Host *\n\
+    StrictHostKeyChecking no\n\
+    UserKnownHostsFile=/dev/null\n\
+""" >> /etc/ssh/ssh_config
+
+COPY entrypoint /usr/local/bin/
+
+#testing
+RUN ansible --version
+
+WORKDIR /home/ansible
+
+ENTRYPOINT ["entrypoint"]
+
+# default command: display Ansible version
+CMD [ "ansible-playbook", "--version" ]
