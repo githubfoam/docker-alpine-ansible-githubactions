@@ -1,4 +1,4 @@
-name: "ansible alpine CI workflow"
+name: "build ansible alpine CI workflow"
 
 
 on:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       distribution: "alpine" #https://hub.docker.com/_/alpine
-      version: "4.1.0"
+      version: "latest"
       name: "alpine/ansible"
       dockerfiledir: "dockerfiles"
       dockerfilename: "Dockerfile.alpine.latest"
@@ -51,7 +51,7 @@ jobs:
       version: "4.1.0"
       name: "alpine/ansible"
       dockerfiledir: "dockerfiles"
-      dockerfilename: "Dockerfile.alpine.latest"
+      dockerfilename: "Dockerfile.alpine"
       playbookname: "playbook-alpine.yml"
       DOCKER_REPO: "dockerfoam"
     steps:
@@ -75,7 +75,8 @@ jobs:
              --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION:=5.1.3} \
              --build-arg MITOGEN_VERSION=${MITOGEN_VERSION:=0.2.9} \
              -t ${IMAGE_NAME:=githubfoam/ansible-alpine:2.9.26} .
+        docker image ls
     # - name: "docker push alpine"
     #   run: |
     #     docker tag ${IMAGE_NAME} ${DOCKER_REPO}:${ANSIBLE_VERSION}
-    #     docker push $DOCKER_REPO:${ANSIBLE_VERSION}     
+    #     docker push $DOCKER_REPO:${ANSIBLE_VERSION}         

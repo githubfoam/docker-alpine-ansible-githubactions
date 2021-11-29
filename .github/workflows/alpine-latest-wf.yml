@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       distribution: "alpine" #https://hub.docker.com/_/alpine
-      version: "4.1.0"
+      version: "latest"
       name: "alpine/ansible"
       dockerfiledir: "dockerfiles"
-      dockerfilename: "Dockerfile.alpine.latest"
+      dockerfilename: "Dockerfile"
       playbookname: "playbook-alpine.yml"
     steps:
     - uses: actions/checkout@v2
