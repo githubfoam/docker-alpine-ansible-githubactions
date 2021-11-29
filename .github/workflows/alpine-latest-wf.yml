@@ -16,7 +16,7 @@ jobs:
       version: "3.14.3"
       name: "alpine/ansible"
       dockerfiledir: "dockerfiles"
-      dockerfilename: "Dockerfile.3143"
+      dockerfilename: "Dockerfile.alpine.3143"
       playbookname: "playbook-alpine.yml"
     steps:
     - uses: actions/checkout@v2
