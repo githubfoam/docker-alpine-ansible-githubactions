@@ -3,7 +3,7 @@ name: "alpine latest ansible local CI workflow"
 
 on:
   push:
-    branches: [ test ]
+    branches: [ main ]
 
 jobs:
 
