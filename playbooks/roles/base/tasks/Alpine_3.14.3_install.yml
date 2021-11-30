@@ -8,8 +8,16 @@
 #     - default.yml
 
 
-- name: "Install system packages"
-  package:
-    name: '{{ system_packages }}'
-    use: '{{ ansible_pkg_mgr }}'
-    state: present
+# - name: "Install system packages"
+#   package:
+#     name: '{{ system_packages }}'
+#     use: '{{ ansible_pkg_mgr }}'
+#     state: present
+- name: "Update package cache"
+  apk:
+    update_cache: yes
+
+- name: "Upgrade all packages"
+  apk:
+    available: yes
+    upgrade: yes   
