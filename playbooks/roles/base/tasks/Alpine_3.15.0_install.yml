@@ -8,8 +8,27 @@
 #     - default.yml
 
 
-- name: "Install system packages"
-  package:
-    name: '{{ system_packages }}'
-    use: '{{ ansible_pkg_mgr }}'
-    state: present
+    # - name: "Install system packages"
+    #   package:
+    #     name: '{{ system_packages }}'
+    #     use: '{{ ansible_pkg_mgr }}'
+    #     state: present
+
+    - name: "install nfs server package"
+      package:
+        name: nfs-utils
+
+    - name: "autostart nfs server"
+      service:
+        name: nfs
+        enabled: True
+        state: started
+
+    - name: "Copy exports file"
+      template:
+        src: templates/exports.j2
+        dest: /etc/exports
+        owner: root
+        group: root
+        mode: 0644
+      notify: reload nfs

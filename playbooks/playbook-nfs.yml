@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  become: yes
+  handlers:
+    - name: reload nfs
+      command: 'exportfs -ra'
+  vars:
+    nfs_exports:
+      - "/exports/fast"
+      - "/exports/slow"  
+  roles:
+    - { role: base, tags: ['base'] }
